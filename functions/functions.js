@@ -5,3 +5,7 @@ export const convertDegreesToRadians = (degrees) => {
 export const convertRadiansToDegrees = (radians) => {
   return (radians / Math.PI) * 180;
 };
+
+export const sayHi = () => {
+  return alert("Hi");
+};
