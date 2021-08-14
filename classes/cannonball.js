@@ -1,4 +1,5 @@
-import { gravity, h } from "../angryCannon.js";
+import { h } from "../angryCannon.js";
+import { gravity } from "../constants/constants.js";
 
 export class Cannonball {
     constructor(x, y,dx,dy) {
