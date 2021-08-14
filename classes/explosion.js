@@ -3,15 +3,17 @@ export class Explosion{
     constructor(source){
       this.x = source.x
       this.y = source.y
-      this.size = 2
+      this.size = source.size
       this.particles = []
-      this.init()
+      this.init(source)
     }
-    init(){
+    init(source){
       let particleNo = this.size*2
       for(let i =0;i<particleNo;i++){
-        let dx = Math.random()*4-2
-        let dy = Math.random()*4-2
+        let dx = 1.3* source.dx * (Math.random() - 0.2);
+        dx += 3 * (Math.random() - 0.5);
+        let dy = 1.3* source.dy * (Math.random() - 0.2);
+        dy += 3 * (Math.random() - 0.5);
         let particle = new Particle(this.x,this.y,dx,dy)
         this.particles.push(particle)
       }

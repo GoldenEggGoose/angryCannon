@@ -8,9 +8,12 @@ export class Particle{
       this.dx = dx
       this.dy = dy
       this.life = frameRate
+      this.airResistance = .97
     }
     move(){
       this.life-=1
+      this.dx*=this.airResistance
+      this.dy*=this.airResistance      
       this.x += this.dx;
       this.dy += gravity;
       this.y += this.dy;
