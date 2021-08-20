@@ -24,7 +24,6 @@ export class Explosion{
       });
     }
     move(){
-      console.log(this.particles)
       for(let i = this.particles.length-1; i >= 0; i--){
         if(this.particles[i].life <= 0){
           this.particles.splice(i,1)
