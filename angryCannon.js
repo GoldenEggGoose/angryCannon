@@ -2,7 +2,7 @@ import { Explosion } from "./classes/explosion.js";
 import { Cannon } from "./classes/cannon.js";
 import { frameRate, reloadTime } from "./constants/constants.js";
 import { Enemy } from "./classes/enemy.js";
-import { shouldSpawnEnemy } from "./functions/functions.js";
+import { drawScore, shouldSpawnEnemy } from "./functions/functions.js";
 
 const canvas = document.querySelector(`canvas`);
 const c = canvas.getContext(`2d`);
@@ -22,6 +22,7 @@ canvas.onmousemove = (event) => {
 };
 
 let cannonballs = [];
+let score = 0
 
 const cannon = new Cannon(40, 30);
 canvas.onclick = (event) => {
@@ -45,6 +46,7 @@ let explosions = [];
 let enemies = [];
 const render = () => {
   c.clearRect(0, 0, w, h);
+  drawScore(c, score)
   for (let i = cannonballs.length - 1; i >= 0; i--) {
     if (cannonballs[i].shouldIDie()) {
       explosions.push(new Explosion(cannonballs[i]));
@@ -65,6 +67,7 @@ const render = () => {
     enemy.draw(c);
     cannonballs.forEach((cannonball) => {
       if (enemy.checkCollision(cannonball)) {
+        console.log(score)
         explosions.push(new Explosion(enemy));
       }
     });
@@ -77,18 +80,19 @@ const render = () => {
         explosions.push(new Explosion(enemies[i]));
         cannonballs.splice(j, 1);
         enemies.splice(i, 1);
+        score+=100
         break;
       }
     }
   }
-
+  
   explosions.forEach((explosion) => {
     explosion.draw(c);
     explosion.move();
   });
   cannon.changeAngle(mouse);
   cannon.draw(c);
-
+  
   enemies.forEach((enemy) => {
     if (enemy.x <= 0) {
       gameOver = true;
@@ -98,13 +102,13 @@ const render = () => {
     if (!gameOver) {
       render();
     } else {
-      c.save()
+      c.save();
       c.fillStyle = "red";
       c.font = "48px Segoe UI";
       c.textAlign = "center";
       c.textBaseline = "middle";
       c.fillText("Game Over", w / 2, h / 2, 1000);
-      c.restore()
+      c.restore();
     }
   }, 1000 / frameRate);
 };
